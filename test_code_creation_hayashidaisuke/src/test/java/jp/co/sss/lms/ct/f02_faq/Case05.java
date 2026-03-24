@@ -150,6 +150,9 @@ public class Case05 {
 	@DisplayName("テスト06 「クリア」ボタン押下で入力したキーワードを消去")
 	void test06() {
 
+		//検索バーが見えやすい位置にスクロール
+		((JavascriptExecutor) webDriver).executeScript("window.scrollTo(0,0);");
+
 		//「クリア」ボタンを押下
 		WebElement button = webDriver.findElements(By.cssSelector(".btn.btn-primary")).get(1);
 		button.click();
