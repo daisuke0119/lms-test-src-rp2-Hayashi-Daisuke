@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
 
 /**
  * 結合テスト レポート機能
@@ -80,8 +81,10 @@ public class Case08 {
 		//コース詳細画面で2022年10月2日(日)の「詳細」ボタンを押下
 		webDriver.findElements(By.cssSelector(".btn.btn-default")).get(2).click();
 
-		//タイトルが正しいか検証
+		//選択した日付の画面に遷移しているかタイトルと見出しを取得して検証
 		assertEquals("セクション詳細 | LMS", webDriver.getTitle());
+		WebElement headline = webDriver.findElement(By.tagName("h2"));
+		assertEquals("2022年10月2日", headline.findElement(By.tagName("small")).getText());
 
 		//スクリーンショットを撮影
 		getEvidence(new Object() {
@@ -115,12 +118,11 @@ public class Case08 {
 		//「提出する」ボタンが表示される箇所までページをスクロール
 		((JavascriptExecutor) webDriver).executeScript("window.scrollBy(0,1000)");
 
-		//テキストボックスの内容を消去する
-		webDriver.findElement(By.id("content_1")).clear();
-
-		//テキストボックスに修正済みの所感の内容を入力
+		//テキストボックスの内容を消去し、修正済みの所感の内容を入力
 		String fixedReport = "今週も頑張りました！\n来週も頑張ります！";
-		webDriver.findElement(By.id("content_1")).sendKeys(fixedReport);
+		WebElement textBox = webDriver.findElement(By.id("content_1"));
+		textBox.clear();
+		textBox.sendKeys(fixedReport);
 
 		//「提出する」ボタンを押下
 		webDriver.findElement(By.cssSelector(".btn.btn-primary")).click();
@@ -144,7 +146,7 @@ public class Case08 {
 		//タイトルを取得して検証
 		assertEquals("ユーザー詳細", webDriver.getTitle());
 
-		//スクリーンショットを撮影
+		//		//スクリーンショットを撮影
 		getEvidence(new Object() {
 		});
 	}
@@ -167,7 +169,7 @@ public class Case08 {
 		String expectedReportText = "今週も頑張りました！\n来週も頑張ります！";
 		assertEquals(expectedReportText, webDriver.findElements(By.tagName("td")).get(4).getText());
 
-		//スクリーンショットを撮影
+		//		//スクリーンショットを撮影
 		getEvidence(new Object() {
 		});
 	}

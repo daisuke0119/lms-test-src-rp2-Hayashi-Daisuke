@@ -11,6 +11,7 @@ import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestMethodOrder;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 /**
  * 結合テスト レポート機能
@@ -79,8 +80,10 @@ public class Case07 {
 		//コース詳細画面で2022年10月5日(水)の「詳細」ボタンを押下
 		webDriver.findElements(By.cssSelector(".btn.btn-default")).get(3).click();
 
-		//タイトルが正しいか検証
+		//選択した日付の画面に遷移しているかタイトルと見出しを取得して検証
 		assertEquals("セクション詳細 | LMS", webDriver.getTitle());
+		WebElement headline = webDriver.findElement(By.tagName("h2"));
+		assertEquals("2022年10月5日", headline.findElement(By.tagName("small")).getText());
 
 		//スクリーンショットを撮影
 		getEvidence(new Object() {
