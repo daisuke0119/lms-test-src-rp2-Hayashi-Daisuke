@@ -3,8 +3,11 @@ package jp.co.sss.lms.ct.f04_attendance;
 import static jp.co.sss.lms.ct.util.WebDriverUtils.*;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.TextStyle;
+import java.util.Locale;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
@@ -110,7 +113,14 @@ public class Case10 {
 		webDriver.switchTo().alert().accept();
 
 		//正しい時刻(テスト実施時刻)が登録されているか検証
-		String targetDate = "2026年3月26日(木)";
+		StringBuilder sb = new StringBuilder();
+		LocalDate today = LocalDate.now();
+		sb.append(today.format(DateTimeFormatter.ofPattern("yyyy")) + "年");
+		sb.append(today.format(DateTimeFormatter.ofPattern("M")) + "月");
+		sb.append(today.format(DateTimeFormatter.ofPattern("dd")) + "日");
+		sb.append("(" + today.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.JAPANESE) + ")");
+		String targetDate = sb.toString();
+
 		String xpath = "//td[contains(text(),'" + targetDate + "')]/parent::tr/td[3]";
 		String expectedTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
 
@@ -134,7 +144,14 @@ public class Case10 {
 		webDriver.switchTo().alert().accept();
 
 		//正しい時刻(テスト実施時刻)が登録されているか検証
-		String targetDate = "2026年3月26日(木)";
+		StringBuilder sb = new StringBuilder();
+		LocalDate today = LocalDate.now();
+		sb.append(today.format(DateTimeFormatter.ofPattern("yyyy")) + "年");
+		sb.append(today.format(DateTimeFormatter.ofPattern("M")) + "月");
+		sb.append(today.format(DateTimeFormatter.ofPattern("dd")) + "日");
+		sb.append("(" + today.getDayOfWeek().getDisplayName(TextStyle.SHORT, Locale.JAPANESE) + ")");
+		String targetDate = sb.toString();
+
 		String xpath = "//td[contains(text(),'" + targetDate + "')]/parent::tr/td[4]";
 		String expectedTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"));
 
