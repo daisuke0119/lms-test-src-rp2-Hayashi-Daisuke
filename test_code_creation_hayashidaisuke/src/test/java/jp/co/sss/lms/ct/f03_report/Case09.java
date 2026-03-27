@@ -148,7 +148,7 @@ public class Case09 {
 	@DisplayName("テスト06 不適切な内容で修正して「提出する」ボタンを押下しエラー表示：理解度が未入力")
 	void test06() {
 
-		//エラー表示を発生させるため学習項目を入力しなおす
+		//前項のエラー表示を直すため正しい値を入力
 		webDriver.findElement(By.id("intFieldName_0")).sendKeys("ITリテラシー①");
 
 		//理解度のドロップダウンリストで空白の選択肢を選択
